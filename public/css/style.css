@@ -5,6 +5,9 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #f8f9fa;
+    padding-top: 0;
+    margin: 0;
+    overflow-x: hidden;
 }
 
 .footer {
@@ -12,7 +15,15 @@ body {
 }
 
 .navbar {
-    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    background: rgba(255, 255, 255, 0.95) !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1030;
+    transition: background 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .card {
@@ -92,7 +103,7 @@ body {
 /* Hero Banner Styles */
 .hero-banner {
     position: relative;
-    margin: -1.5rem 0 2rem;
+    margin: 0;
     width: 100vw;
     left: 50%;
     right: 50%;
@@ -100,13 +111,17 @@ body {
     margin-right: -50vw;
 }
 
-.hero-banner .carousel-item {
-    height: 50vh;
-    min-height: 400px;
+/* Target the carousel directly */
+#homeCarousel,
+#homeCarousel .carousel-inner,
+#homeCarousel .carousel-item,
+#homeCarousel .carousel-item img {
+    height: 400px !important;
+    min-height: 120px !important;
+    max-height: 400px !important;
 }
 
 .hero-banner .carousel-item img {
-    height: 100%;
     width: 100%;
     object-fit: cover;
     object-position: center;
@@ -130,16 +145,26 @@ body {
     margin: 0 auto;
     left: 0;
     right: 0;
+    padding: 0;
 }
 
-.hero-banner .carousel-indicators {
-    z-index: 3;
+.hero-banner .display-4 {
+    font-size: 1.5rem !important;
+    margin-bottom: 0.25rem;
+}
+
+.hero-banner .lead {
+    font-size: 0.9rem !important;
+    margin-bottom: 0;
 }
 
 .hero-banner .carousel-control-prev,
 .hero-banner .carousel-control-next {
-    z-index: 3;
     width: 5%;
+}
+
+.hero-banner .carousel-indicators {
+    margin-bottom: 0.5rem;
 }
 
 /* Feature Cards */
@@ -188,4 +213,286 @@ body {
         padding: 0.5rem 1rem;
         font-size: 1rem;
     }
+}
+
+/* General Styles */
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+body {
+    padding-top: 0;
+    overflow-x: hidden;
+}
+
+section {
+    scroll-margin-top: 76px;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    padding: 6rem 0; /* Increased vertical padding */
+}
+
+.section-content {
+    max-width: 1400px; /* Wider max-width for content */
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.section-title {
+    position: relative;
+    padding-bottom: 20px;
+    margin-bottom: 60px; /* Increased margin */
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--bs-primary);
+}
+
+/* Section-specific styles */
+.section-hero {
+    padding: 0; /* Remove padding for hero section */
+}
+
+.section-gallery {
+    background-color: #fff;
+}
+
+.section-floorplans {
+    background-color: #f8f9fa;
+}
+
+.section-amenities {
+    background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
+                url('/images/gallery/amenities-bg.jpg') center/cover fixed;
+    padding: 8rem 0;
+}
+
+.section-contact {
+    background-color: #f8f9fa;
+}
+
+/* Gallery Styles */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 0 1rem;
+}
+
+.gallery-item {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+/* Amenities Grid */
+.amenities-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Fixed 3 columns instead of auto-fit */
+    gap: 2.5rem;
+    padding: 0 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.amenity-item {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 3rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.amenity-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.amenity-item i {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--bs-primary);
+}
+
+.amenity-item h4 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.amenity-item p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .amenities-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .amenities-grid {
+        grid-template-columns: 1fr; /* Single column on mobile */
+        max-width: 400px; /* Limit width on mobile */
+        gap: 1.5rem;
+    }
+    
+    .amenity-item {
+        padding: 2.5rem 1.5rem;
+    }
+}
+
+/* Contact Section */
+.contact-wrapper {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    section {
+        padding: 4rem 0;
+    }
+    
+    .section-content {
+        padding: 0 1rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 40px;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+    
+    .amenities-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+/* Navbar Styles */
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: var(--bs-primary);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Gallery Styles */
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+/* Amenity Styles */
+.amenity-item {
+    padding: 30px;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.amenity-item:hover {
+    transform: translateY(-5px);
+}
+
+/* Contact Form Styles */
+.form-control:focus {
+    box-shadow: none;
+    border-color: var(--bs-primary);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .gallery-item img {
+        height: 200px;
+    }
+}
+
+/* Override Bootstrap's column width for amenities */
+@media (min-width: 768px) {
+    .amenities-grid .col-md-4 {
+        width: auto;
+        flex: 1;
+    }
+}
+
+/* Remove margin from first section after navbar */
+section:first-of-type {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+/* Adjust container spacing */
+.container.mt-4 {
+    margin-top: 0 !important;
 } 
