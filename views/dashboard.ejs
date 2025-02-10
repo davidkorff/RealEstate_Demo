@@ -1,0 +1,74 @@
+<%- contentFor('body') %>
+
+<div class="row">
+    <div class="col-md-12 mb-4">
+        <h2>Welcome, <%= user.first_name ? user.first_name : 'Resident' %>!</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">Recent Maintenance Requests</h4>
+                <a href="/maintenance" class="btn btn-primary btn-sm">View All</a>
+            </div>
+            <div class="card-body">
+                <% if (requests && requests.length > 0) { %>
+                    <div class="list-group">
+                        <% requests.slice(0, 3).forEach(request => { %>
+                            <div class="list-group-item">
+                                <h5 class="mb-1"><%= request.title %></h5>
+                                <p class="mb-1"><%= request.description %></p>
+                                <small class="text-muted">
+                                    Status: <span class="badge bg-<%= request.status === 'pending' ? 'warning' : 'success' %>">
+                                        <%= request.status %>
+                                    </span>
+                                </small>
+                            </div>
+                        <% }); %>
+                    </div>
+                <% } else { %>
+                    <p class="text-muted">No maintenance requests found.</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0">Quick Actions</h4>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="/maintenance/new" class="btn btn-primary">Submit Maintenance Request</a>
+                    <a href="/profile" class="btn btn-outline-primary">Update Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0">Important Information</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <strong>Your Unit:</strong> <%= user.unit_number %>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Emergency Contact:</strong> (555) 123-4567
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Office Hours:</strong> Mon-Fri 9:00 AM - 5:00 PM
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div> 

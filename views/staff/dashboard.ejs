@@ -1,0 +1,104 @@
+<%- contentFor('body') %>
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h2>Staff Dashboard</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>All Maintenance Requests</h4>
+            </div>
+            <div class="card-body">
+                <% if (requests && requests.length > 0) { %>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Unit</th>
+                                    <th>Resident</th>
+                                    <th>Title</th>
+                                    <th>Status</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% requests.forEach(request => { %>
+                                    <tr>
+                                        <td>#<%= request.id %></td>
+                                        <td><%= request.unit_number %></td>
+                                        <td><%= request.first_name %> <%= request.last_name %></td>
+                                        <td><%= request.title %></td>
+                                        <td>
+                                            <span class="badge bg-<%= request.status === 'pending' ? 'warning' : 
+                                                                     request.status === 'in_progress' ? 'info' : 
+                                                                     request.status === 'completed' ? 'success' : 'secondary' %>">
+                                                <%= request.status.replace('_', ' ') %>
+                                            </span>
+                                        </td>
+                                        <td><%= new Date(request.created_at).toLocaleDateString() %></td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" 
+                                                        class="btn btn-sm btn-outline-primary" 
+                                                        data-bs-toggle="modal" 
+                                                        data-bs-target="#updateModal<%= request.id %>">
+                                                    Update
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                <% } else { %>
+                    <p class="text-center text-muted">No maintenance requests found.</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update Status Modals -->
+<% if (requests && requests.length > 0) { %>
+    <% requests.forEach(request => { %>
+        <div class="modal fade" id="updateModal<%= request.id %>" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Update Request #<%= request.id %></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form action="/api/maintenance/<%= request.id %>" method="POST">
+                        <input type="hidden" name="_method" value="PUT">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">Status</label>
+                                <select name="status" class="form-select">
+                                    <option value="pending" <%= request.status === 'pending' ? 'selected' : '' %>>Pending</option>
+                                    <option value="in_progress" <%= request.status === 'in_progress' ? 'selected' : '' %>>In Progress</option>
+                                    <option value="completed" <%= request.status === 'completed' ? 'selected' : '' %>>Completed</option>
+                                    <option value="cancelled" <%= request.status === 'cancelled' ? 'selected' : '' %>>Cancelled</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Staff Notes</label>
+                                <textarea name="staff_notes" class="form-control" rows="3"><%= request.staff_notes || '' %></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Update Request</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <% }) %>
+<% } %> 

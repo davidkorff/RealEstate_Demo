@@ -1,0 +1,44 @@
+<%- contentFor('body') %>
+
+<div class="container">
+    <h1 class="text-center mb-4">Photo Gallery</h1>
+    
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <img src="/images/gallery/exterior1.jpg" class="card-img-top" alt="Building Exterior" onerror="this.onerror=null; console.log('Image failed to load:', this.src); this.src='/images/placeholder.jpg'">
+                <div class="card-body">
+                    <h5 class="card-title">Building Exterior</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <img src="/images/gallery/exterior1.jpg" class="card-img-top" alt="Main Lobby">
+                <div class="card-body">
+                    <h5 class="card-title">Main Lobby</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <img src="/images/gallery/exterior1.jpg" class="card-img-top" alt="Swimming Pool">
+                <div class="card-body">
+                    <h5 class="card-title">Swimming Pool</h5>
+                </div>
+            </div>
+        </div>
+        <!-- Add more gallery items as needed -->
+    </div>
+</div>
+
+<!-- Debug section -->
+<div class="container mt-4 d-none">
+    <div class="card">
+        <div class="card-body">
+            <h5>Debug Info:</h5>
+            <p>Base URL: <%= typeof baseUrl !== 'undefined' ? baseUrl : 'Not set' %></p>
+            <p>Public Path: <%= process.cwd() %>/public</p>
+        </div>
+    </div>
+</div> 
